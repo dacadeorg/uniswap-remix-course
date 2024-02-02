@@ -1,8 +1,3 @@
-
-
-
-
-
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
@@ -33,32 +28,6 @@ contract UniswapV3SwapExamples {
 
         amountOut = router.exactInputSingle(params);
     }
-
-
-    function swapExactInputMultiHop(
-        bytes calldata path,
-        address tokenIn,
-        uint amountIn
-    ) external returns (uint amountOut) {
-        // Transfer Tokens
-        IERC20(tokenIn).transferFrom(msg.sender, address(this), amountIn);
-
-        // Approve Router
-        IERC20(tokenIn).approve(address(router), amountIn);
-
-        // Define Swap Parameters
-        ISwapRouter.ExactInputParams memory params = ISwapRouter.ExactInputParams({
-            path: path,
-            recipient: msg.sender,
-            deadline: block.timestamp,
-            amountIn: amountIn,
-            amountOutMinimum: 0
-        });
-
-        // Execute Multi-Hop Swap
-        amountOut = router.exactInput(params);
-    }
-
 }
 
 interface ISwapRouter {
@@ -89,28 +58,3 @@ interface ISwapRouter {
         ExactInputParams calldata params
     ) external payable returns (uint amountOut);
 }
-
-interface IERC20 {
-    function totalSupply() external view returns (uint);
-
-    function balanceOf(address account) external view returns (uint);
-
-    function transfer(address recipient, uint amount) external returns (bool);
-
-    function allowance(address owner, address spender) external view returns (uint);
-
-    function approve(address spender, uint amount) external returns (bool);
-
-    function transferFrom(
-        address sender,
-        address recipient,
-        uint amount
-    ) external returns (bool);
-}
-
-interface IWETH is IERC20 {
-    function deposit() external payable;
-
-    function withdraw(uint amount) external;
-}
-

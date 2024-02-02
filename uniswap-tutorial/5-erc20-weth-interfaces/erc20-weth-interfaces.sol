@@ -1,11 +1,8 @@
-
-
-// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
 contract UniswapV3SwapExamples {
     ISwapRouter constant router =
-    ISwapRouter(0xE592427A0AEce92De3Edee1F18E0157C05861564);
+        ISwapRouter(0xE592427A0AEce92De3Edee1F18E0157C05861564);
 
     function swapExactInputSingleHop(
         address tokenIn,
@@ -18,32 +15,27 @@ contract UniswapV3SwapExamples {
 
         ISwapRouter.ExactInputSingleParams memory params = ISwapRouter
             .ExactInputSingleParams({
-            tokenIn: tokenIn,
-            tokenOut: tokenOut,
-            fee: poolFee,
-            recipient: msg.sender,
-            deadline: block.timestamp,
-            amountIn: amountIn,
-            amountOutMinimum: 0,
-            sqrtPriceLimitX96: 0
-        });
+                tokenIn: tokenIn,
+                tokenOut: tokenOut,
+                fee: poolFee,
+                recipient: msg.sender,
+                deadline: block.timestamp,
+                amountIn: amountIn,
+                amountOutMinimum: 0,
+                sqrtPriceLimitX96: 0
+            });
 
         amountOut = router.exactInputSingle(params);
     }
-
 
     function swapExactInputMultiHop(
         bytes calldata path,
         address tokenIn,
         uint amountIn
     ) external returns (uint amountOut) {
-        // Transfer Tokens
         IERC20(tokenIn).transferFrom(msg.sender, address(this), amountIn);
-
-        // Approve Router
         IERC20(tokenIn).approve(address(router), amountIn);
 
-        // Define Swap Parameters
         ISwapRouter.ExactInputParams memory params = ISwapRouter.ExactInputParams({
             path: path,
             recipient: msg.sender,
@@ -51,11 +43,8 @@ contract UniswapV3SwapExamples {
             amountIn: amountIn,
             amountOutMinimum: 0
         });
-
-        // Execute Multi-Hop Swap
         amountOut = router.exactInput(params);
     }
-
 }
 
 interface ISwapRouter {
@@ -70,6 +59,9 @@ interface ISwapRouter {
         uint160 sqrtPriceLimitX96;
     }
 
+    /// @notice Swaps amountIn of one token for as much as possible of another token
+    /// @param params The parameters necessary for the swap, encoded as ExactInputSingleParams in calldata
+    /// @return amountOut The amount of the received token
     function exactInputSingle(
         ExactInputSingleParams calldata params
     ) external payable returns (uint amountOut);
@@ -82,6 +74,9 @@ interface ISwapRouter {
         uint amountOutMinimum;
     }
 
+    /// @notice Swaps amountIn of one token for as much as possible of another along the specified path
+    /// @param params The parameters necessary for the multi-hop swap, encoded as ExactInputParams in calldata
+    /// @return amountOut The amount of the received token
     function exactInput(
         ExactInputParams calldata params
     ) external payable returns (uint amountOut);
@@ -103,10 +98,13 @@ interface IERC20 {
         address recipient,
         uint amount
     ) external returns (bool);
+
+    event Transfer(address indexed from, address indexed to, uint value);
+    event Approval(address indexed owner, address indexed spender, uint value);
 }
 
 interface IWETH is IERC20 {
-    // IWETH interface definition (if relevant)
-    // ...
-}
+    function deposit() external payable;
 
+    function withdraw(uint amount) external;
+}

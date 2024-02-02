@@ -1,29 +1,33 @@
-# Uniswap V3 Router Interface and Structs
+In this section, we'll explore the `ISwapRouter` interface, which defines the functions that can be called on the Uniswap Swap contract.
 
-In this section, we'll explore the `ISwapRouter` interface, which is a crucial component of the Uniswap V3 Swap contract. The interface defines the function signatures required for interacting with the Uniswap V3 router. Additionally, we'll examine two important structs: `ExactInputSingleParams` and `ExactInputParams`.
+Single-hop swaps allow users to exchange one token for another directly within a liquidity pool. 
+Multi-hop swaps allow users to exchange one token for another by routing through multiple tokens. 
+Interfaces in Solidity specify functions that can be called on a smart contract and are useful to interact with them.
+Structs are used to define custom data types.
 
-## `ISwapRouter` Interface
+## ISwapRouter Interface
+The ISwapRouter interface defines the functions that can be called on the Uniswap Swap contract. We will need to use this interface to interact with the Uniswap Swap contract and execute swaps.
 
-The `ISwapRouter` interface acts as the gateway for executing swaps on Uniswap V3. It provides the following essential functions:
+On line 5, we define a constant variable called `router` that is of type `ISwapRouter`. We set the value of this variable to the interface instance of a smart contract that is deployed at the address `0xE592427A0AEce92De3Edee1F18E0157C05861564`. This address is the address of the Uniswap V3 Swap contract on the Ethereum mainnet.
 
-### 1. `exactInputSingle (Line 25)`
+On line 9, we define an interface called `ISwapRouter`. This interface defines two functions: `exactInputSingle` and `exactInput`. 
 
-This function executes a single-hop swap and takes in a ExactInputSingleParams struct as a parameter(Line 26), exchanging one token for another directly within a liquidity pool. The function takes the following parameters:
+## exactInputSingle
+On line 25, we define a struct called `ExactInputSingleParams`. This struct defines the parameters that are required for our exactInputSingle function on line 21, which will execute a single-hop swap. The struct has the following parameters: 
+- **`address tokenIn`**: The address of the token being sent.
+- **`address tokenOut`**: The address of the token being received.
+- **`uint24 fee`**: The fee associated with the swap.
+- **`address recipient`**: The address that will receive the output token.
+- **`uint deadline`**: A timestamp by which the transaction must be processed, for time-limiting the swap.
+- **`uint amountIn`**: The amount of the input token being sent.
+- **`uint amountOutMinimum`**: The minimum amount of the output token that the sender is willing to accept, to protect against unfavorable price movements.
+- **`uint160 sqrtPriceLimitX96`**: A limit on the price, represented in a specific format, to prevent the swap from occurring at unfavorable prices.
 
-- `tokenIn and tokenOut`: The addresses of the input and output tokens.
-- `fee`: The fee tier of the pool.
-- `recipient`: The address that receives the output tokens.
-- `deadline`: The deadline for the swap. If the swap is executed after this timestamp, the swap will revert.
-- `amountIn`: The amount of input tokens to swap. This amount must be less than or equal to the amount transferred to the contract.
-- `amountOutMinimum`: The minimum amount of output tokens to receive. If the swap results in less than this amount, the swap will revert.
-- `sqrtPriceLimitX96`: The square root of the price limit. This parameter is optional. If set to 0, there is no price limit. If set to a non-zero value, the swap will revert if the price limit is violated.
+## exactInput
+On line 25, we define a struct called `ExactInputParams`. This struct defines the parameters that are required for our `exactInput` function on line 33. This function will execute a multi-hop swap. The struct has the following parameters:
+- **`bytes path`**: Encoded information about the swap path (i.e., which tokens to swap through).
+- **`address recipient`**: The address receiving the output tokens.
+- **`uint deadline`**: Similar to above, a timestamp by which the transaction must be processed.
+- **`uint amountIn`**: The amount of the input token.
+- **`uint amountOutMinimum`**: The minimum amount of the output token the sender expects to receive.
 
-### 2. `exactInput (Line 37)`
-This function executes a multi-hop swap and takes in a ExactInputParams struct as a parameter(Line 38), allowing users to specify a custom path through multiple liquidity pools. The function takes the following parameters:
-- `path`: The encoded path specifying the route for the multi-hop swap.
-- `recipient`: The address that receives the output tokens.
-- `deadline`: The deadline for the swap. If the swap is executed after this timestamp, the swap will revert.
-- `amountIn`: The amount of input tokens to swap. This amount must be less than or equal to the amount transferred to the contract.
-- `amountOutMinimum`: The minimum amount of output tokens to receive. If the swap results in less than this amount, the swap will revert.
-
-Understanding these components is vital for leveraging the Uniswap V3 Swap contract effectively. 

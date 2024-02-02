@@ -29,7 +29,6 @@ contract UniswapV3SwapExamples {
         amountOut = router.exactInputSingle(params);
     }
 
-
     function swapExactInputMultiHop(
         bytes calldata path,
         address tokenIn,
@@ -53,7 +52,6 @@ contract UniswapV3SwapExamples {
         // Execute Multi-Hop Swap
         amountOut = router.exactInput(params);
     }
-
 }
 
 interface ISwapRouter {
@@ -84,15 +82,3 @@ interface ISwapRouter {
         ExactInputParams calldata params
     ) external payable returns (uint amountOut);
 }
-
-interface IERC20 {
-    // IERC20 interface definition
-    // ...
-}
-
-interface IWETH is IERC20 {
-    // IWETH interface definition (if relevant)
-    // ...
-}
-
-
