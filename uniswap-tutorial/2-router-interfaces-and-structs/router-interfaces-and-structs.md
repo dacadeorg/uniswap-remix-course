@@ -1,14 +1,18 @@
-In this section, we'll explore the `ISwapRouter` interface, which defines the functions that can be called on the Uniswap Swap contract.
+The entire UniswapSwapExamples contract will only be presented in section 5 of this tutorial.  Before then, we'll build up blocks of code.  
+
+This section explores the `ISwapRouter` interface, which defines the functions that can be called on the Uniswap Swap contract.
 
 Single-hop swaps allow users to exchange one token for another directly within a liquidity pool. 
 Multi-hop swaps allow users to exchange one token for another by routing through multiple tokens. 
-Interfaces in Solidity specify functions that can be called on a smart contract and are useful to interact with them.
+
+Interfaces in Solidity specify functions that must be included in a contract that inherits them.  They are useful for declaring what functions be supported and allow for easier integration and interaction between different contracts.
+
 Structs are used to define custom data types.
 
 ## ISwapRouter Interface
 The ISwapRouter interface defines the functions that can be called on the Uniswap Swap contract. We will need to use this interface to interact with the Uniswap Swap contract and execute swaps.
 
-On line 5, we define a constant variable called `router` that is of type `ISwapRouter`. We set the value of this variable to the interface instance of a smart contract that is deployed at the address `0xE592427A0AEce92De3Edee1F18E0157C05861564`. This address is the address of the Uniswap V3 Swap contract on the Ethereum mainnet.
+On line 5, we define a constant variable called `router` that is of type `ISwapRouter`. We set the value of this variable to the interface instance of a smart contract that is deployed at the address `0xE592427A0AEce92De3Edee1F18E0157C05861564`. This is the address of the Uniswap V3 Swap contract on the Ethereum mainnet.
 
 On line 9, we define an interface called `ISwapRouter`. This interface defines two functions: `exactInputSingle` and `exactInput`. 
 
