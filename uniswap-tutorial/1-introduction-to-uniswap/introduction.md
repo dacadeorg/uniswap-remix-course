@@ -1,6 +1,6 @@
-Welcome to the Uniswap Swap Tutorial! In this tutorial, we'll explore how to use the Uniswap V3 Swap contract to execute single-hop and multi-hop swaps. 
+In this tutorial, we'll explore the Uniswap V3 Swap contract to learn about how single-hop and multi-hop swaps work. 
 
-In this section, we'll learn about Uniswap fundamentals, including what Uniswap is and how it works.
+But first, some Uniswap fundamentals.
 
 ## What is Uniswap?
 Uniswap is a decentralized cryptocurrency exchange. It allows users to exchange tokens without the need for a centralized intermediary. Uniswap is a key player in the decentralized finance (DeFi) space.

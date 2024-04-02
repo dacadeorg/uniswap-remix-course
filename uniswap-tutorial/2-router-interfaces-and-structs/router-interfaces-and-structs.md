@@ -4,7 +4,9 @@ This section explores the `ISwapRouter` interface, which defines the functions t
 
 Single-hop swaps allow users to exchange one token for another directly within a liquidity pool. 
 Multi-hop swaps allow users to exchange one token for another by routing through multiple tokens. 
-Interfaces in Solidity specify functions that can be called on a smart contract and are useful to interact with them.
+
+Interfaces in Solidity specify functions that must be included in a contract that inherits them.  They are useful for declaring what functions be supported and allow for easier integration and interaction between different contracts.
+
 Structs are used to define custom data types.
 
 ## ISwapRouter Interface
