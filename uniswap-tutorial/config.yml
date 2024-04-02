@@ -1,7 +1,7 @@
 ---
 id: uniswapSwapCourse
 name: Uniswap Swap Course
-summary: Learn how to create a Uniswap swap contract using Solidity. Developed by the p2p learning platform https://dacade.org.
+summary: Go through the Solidity code of the Uniswap V3 Swap contract. Developed by the p2p learning platform https://dacade.org.
 tags:
   - Solidity
   - Tokens
